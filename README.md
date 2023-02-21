@@ -9,5 +9,5 @@ para -h
 #### 安装
 
 ```bash
-curl -o- http://ahack.me/para-cli/install.sh | bash
+curl -o- https://raw.githubusercontent.com/linktomarkdown/para-cli/main/install.sh | bash
 ```
