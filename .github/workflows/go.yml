@@ -4,10 +4,8 @@
 name: Go
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  release:
+    types: [created] # 表示在创建新的 Release 时触发
 
 jobs:
   releases-matrix:
