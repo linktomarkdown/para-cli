@@ -95,7 +95,7 @@ import {
   SnackSetting,
 } from '@para-snack/core';
 interface Props {}
-export class ` + name + "Setting" + `extends SnackSetting {
+export class ` + name + "Setting" + ` extends SnackSetting {
 	constructor(public main: Snack, public data: Props) {
 		super(data);
 	}
@@ -107,10 +107,10 @@ export class ` + name + "Setting" + `extends SnackSetting {
 						fmt.Println("创建文件失败")
 						return nil
 					}
-					// 创建文件 name/index.tsx，写入默认数据
+					// 创建文件 name/index.ts，写入默认数据
 					defRootData := `export * from "./src/index";
 export * from "./src/setting";`
-					if err := os.WriteFile(rootDir+"/index.tsx", []byte(defRootData), 0777); err != nil {
+					if err := os.WriteFile(rootDir+"/index.ts", []byte(defRootData), 0777); err != nil {
 						fmt.Println("创建文件失败")
 						return nil
 					}
