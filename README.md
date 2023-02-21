@@ -9,5 +9,5 @@ para -h
 #### 安装
 
 ```bash
-brew install para-cli 
+brew install para 
 ```
