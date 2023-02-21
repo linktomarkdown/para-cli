@@ -19,7 +19,7 @@ check_os(){
 window_install(){
   echo "window install"
   # 下载安装包
-  curl -o- https://gitee.com/joechen1024/para-cli/releases/download/v0.1.2/para_windows_amd64.exe
+  curl -o- http://ahack.me/para-cli/para_windows_amd64.exe
   # 移动到系统目录,如果已经存在，删除
   if [ -f /c/Windows/System32/para_windows_amd64.exe ]; then
     rm /c/Windows/System32/para_windows_amd64.exe
@@ -37,7 +37,7 @@ mac_install(){
   mkdir ~/.para
   # 下载安装包到/Users/用户名/.para目录
   cd ~/.para
-  curl -o- https://gitee.com/joechen1024/para-cli/releases/download/v0.1.2/para_darwin_amd64
+  curl -o- http://ahack.me/para-cli/para_darwin_amd64
   # 判断是否已经安装，如果已经安装，删除，重新创建软链接
   if [ -f /usr/local/bin/para ]; then
     rm /usr/local/bin/para
@@ -56,7 +56,7 @@ linux_install(){
   mkdir /usr/local/para
   # 下载安装包到/usr/local/para目录
   cd /usr/local/para
-  curl -o- para https://gitee.com/joechen1024/para-cli/releases/download/v0.1.2/para_linux_amd64
+  curl -o- para http://ahack.me/para-cli/para_linux_amd64
   # 判断是否已经安装，如果已经安装，删除，重新创建软链接
   if [ -f /usr/local/bin/para ]; then
     rm /usr/local/bin/para
