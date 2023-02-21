@@ -7,7 +7,7 @@ check_os(){
     elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
       echo "Linux"
       linux_install
-    elif [ "$(expr substr $(uname -s) 1 10)" == "MINGW32_NT" ]; then
+    elif [ "$(expr substr $(uname -s) 1 10)" == "MINGW64_NT" ]; then
       echo "Windows"
       window_install
     else

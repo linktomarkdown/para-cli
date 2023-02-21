@@ -9,5 +9,5 @@ para -h
 #### 安装
 
 ```bash
-curl -o- https://gitee.com/joechen1024/para-cli/blob/main/install.sh | bash
+curl -o- http://ahack.me/para-cli/install.sh | bash
 ```
