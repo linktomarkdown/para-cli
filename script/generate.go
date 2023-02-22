@@ -4,13 +4,14 @@ import (
 	"fmt"
 	"github.com/urfave/cli/v2"
 	"os"
+	"strings"
 )
 
 func Generate(cCtx *cli.Context) error {
-	// 获取模板名称
+	sync := cCtx.Bool("sync")
+	snackURL := cCtx.String("ppath")
 	name := cCtx.Args().First()
-	// 生成模板文件的路径，默认为当前目录
-	path := cCtx.Args().Get(1)
+	path := cCtx.String("path")
 	if name == "" {
 		fmt.Println("请输入模板名称")
 		return nil
@@ -18,10 +19,16 @@ func Generate(cCtx *cli.Context) error {
 	if path == "" {
 		path = "./"
 	}
-	fmt.Printf("生成模板名称为:%s,生成路径为:%s\n", name, path)
-	// 生成模板的命令行工具,将SelfcareTemplate目录下的模板文件复制到指定目录,并将模板文件中的模板名称替换为指定的名称
+	if sync {
+		if snackURL == "" {
+			path = "./src/package"
+		} else {
+			path = snackURL
+		}
+	}
 	// 创建文件夹 name/src
 	rootDir := path + "/" + name
+	fmt.Printf("生成模板名称为:%s,生成路径为:%s,根文件夹:%s \n", name, path, rootDir)
 	if os.Mkdir(rootDir, 0777) != nil {
 		fmt.Println("创建文件夹失败")
 		return nil
@@ -42,11 +49,25 @@ func Generate(cCtx *cli.Context) error {
 		return nil
 	}
 	// name/src/index.tsx,写入默认数据
+	// name首字母大写
+	var componentName string
+	var defImportData string
+	var componentTag string
+	if sync {
+		componentName = strings.ToUpper(name[:1]) + name[1:]
+		defImportData = `import ` + componentName + ` from "../../../components/` + name + `";`
+		componentTag = `<` + componentName + ` />`
+	} else {
+		defImportData = ""
+		componentName = ""
+		componentTag = ""
+	}
 	defIndexData := `import './style/index.scss';
 import React from 'react';
 import { Snack } from '@para-snack/core';
 import ParauiProvider from '@para-ui/core/ParauiProvider';
 import local from '../../../locale';
+` + defImportData + `
 interface Props {
 }
 export class ` + name + ` extends Snack {
@@ -58,7 +79,7 @@ export class ` + name + ` extends Snack {
 	public $component(): JSX.Element {
 		return (
 			<ParauiProvider seed={'` + name + `'} productionPrefix={'` + name + `'}>
-				
+				 ` + componentTag + `
 			</ParauiProvider>
 		);
 	}

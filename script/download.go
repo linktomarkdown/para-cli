@@ -13,10 +13,12 @@ import (
 
 // Download 实现下载模板到指定工作目录
 func Download(cCtx *cli.Context) error {
-	// 获取模板名称
+	sync := cCtx.Bool("sync")
 	name := cCtx.Args().First()
-	path := cCtx.Args().Get(1)
-	url := cCtx.Args().Get(2)
+	path := cCtx.String("path")
+	remote := cCtx.String("remote")
+	fmt.Println("sync:" + fmt.Sprint(sync))
+	fmt.Println("模板名称为:" + name + ",路径为:" + path)
 	if name == "" {
 		fmt.Println("请输入模板名称")
 		return nil
@@ -31,14 +33,14 @@ func Download(cCtx *cli.Context) error {
 		}
 	}
 	// 获取模板下载地址
-	if url == "" {
-		url = "http://172.16.0.73:12000"
+	if remote == "" {
+		remote = "http://172.16.0.73:12000/components"
 	}
 	// 下载模板
 	var client = &http.Client{}
-	url = url + "/" + name + ".tar.gz"
-	fmt.Println("将要从" + url + "下载组件" + name + "到" + path)
-	resp, err := client.Get(url)
+	remote = remote + "/" + name + ".tar.gz"
+	fmt.Println("将要从" + remote + "下载组件" + name + "到" + path)
+	resp, err := client.Get(remote)
 	if err != nil {
 		fmt.Println(err)
 		return err
@@ -86,5 +88,12 @@ func Download(cCtx *cli.Context) error {
 	}
 	// 删除压缩包
 	_ = os.Remove("./" + name + ".tar.gz")
+	// 同步创建Snack组件文件并引用
+	if sync {
+		err := Generate(cCtx)
+		if err != nil {
+			return err
+		}
+	}
 	return nil
 }
