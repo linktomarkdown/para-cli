@@ -12,7 +12,7 @@ func main() {
 	app := &cli.App{
 		Name:                   "ParaCLI",
 		Usage:                  "ParaSnack模板生成脚手架!",
-		Version:                "0.1.7",
+		Version:                "0.1.8",
 		UseShortOptionHandling: true,
 		Flags: []cli.Flag{
 			&cli.StringFlag{
@@ -24,6 +24,11 @@ func main() {
 				Name:    "get",
 				Aliases: []string{"g"},
 				Usage:   "拉取仓库组件到本地Snack工程下的Components目录.",
+			},
+			&cli.StringFlag{
+				Name:    "upload",
+				Aliases: []string{"up"},
+				Usage:   "上传组件到仓库.",
 			},
 		},
 		Commands: []*cli.Command{
@@ -61,6 +66,21 @@ func main() {
 					//fmt.Println("remote:", cCtx.String("remote"))
 					//fmt.Println("name:", cCtx.Args().First())
 					err := script.Download(cCtx)
+					if err != nil {
+						return err
+					}
+					return nil
+				},
+			},
+			{
+				Name:    "upload",
+				Aliases: []string{"up"},
+				Usage:   "提交组件到仓库. -p 文件夹路径.",
+				Flags: []cli.Flag{
+					&cli.StringFlag{Name: "path", Aliases: []string{"p"}},
+				},
+				Action: func(cCtx *cli.Context) error {
+					err := script.Upload(cCtx)
 					if err != nil {
 						return err
 					}
