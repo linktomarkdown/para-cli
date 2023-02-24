@@ -15,17 +15,15 @@ import (
 )
 
 func Upload(cCtx *cli.Context) error {
-	name := cCtx.Args().First()
-	path := cCtx.String("path")
+	path := cCtx.Args().First()
 	//remote := "http://localhost:13000/uploadFile"
 	remote := "http://172.16.0.73:13000/uploadFile"
-	if name == "" {
-		fmt.Println("请输入模板名称")
+	if path == "" {
+		fmt.Println("请输入上传的文件路径")
 		return nil
 	}
-	if path == "" {
-		path = "./"
-	}
+	// 名称为路径最后一个文件夹的名字
+	name := filepath.Base(path)
 	fmt.Println("模板名称为:" + name + ",路径为:" + path)
 	// 判断是否是文件夹
 	_, err := os.Stat(path)
@@ -35,7 +33,7 @@ func Upload(cCtx *cli.Context) error {
 	}
 	// 压缩文件夹为tar.gz
 	var buf bytes.Buffer
-	_ = Compress(path+name, &buf)
+	_ = Compress(path, &buf)
 	// write the .tar.gzip
 	fileToWrite, _ := os.OpenFile("./"+name+".tar.gz", os.O_CREATE|os.O_RDWR, os.FileMode(777))
 	if _, err := io.Copy(fileToWrite, &buf); err != nil {

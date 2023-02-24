@@ -35,7 +35,7 @@ func main() {
 			{
 				Name:    "new",
 				Aliases: []string{"n"},
-				Usage:   "生成新的Snack模板. -s 是否同步创建Snack组件文件并引用. -r 指定生成Snack组件文件的地址. -p 指定拉取组件的路径 -pp 指定拉取组件的页面.",
+				Usage:   "生成新的Snack模板. p 指定拉取组件的路径.",
 				Flags: []cli.Flag{
 					&cli.BoolFlag{Name: "sync", Aliases: []string{"s"}},
 					&cli.StringFlag{Name: "path", Aliases: []string{"p"}},
@@ -76,9 +76,6 @@ func main() {
 				Name:    "upload",
 				Aliases: []string{"up"},
 				Usage:   "提交组件到仓库. -p 文件夹路径.",
-				Flags: []cli.Flag{
-					&cli.StringFlag{Name: "path", Aliases: []string{"p"}},
-				},
 				Action: func(cCtx *cli.Context) error {
 					err := script.Upload(cCtx)
 					if err != nil {
