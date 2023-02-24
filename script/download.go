@@ -62,7 +62,7 @@ func Download(cCtx *cli.Context) error {
 	r, _ := os.Open("./" + name + ".tar.gz")
 	uncompressedStream, _ := gzip.NewReader(r)
 	tarReader := tar.NewReader(uncompressedStream)
-	targetDir := path + "/" + name
+	targetDir := path
 	_ = os.MkdirAll(targetDir, 0777)
 	for true {
 		header, err := tarReader.Next()
