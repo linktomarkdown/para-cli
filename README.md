@@ -1,6 +1,6 @@
 ## ParaSnack命令行小工具
 
-### 基于开源协议，如果觉得不错，可以动手给个小心心❤️,[仓库直达](https://github.com/linktomarkdown/para-cli)
+基于开源协议，如果觉得不错，可以动手给个小心心❤️,[仓库直达](https://github.com/linktomarkdown/para-cli)
 
 ParaSnack是一个命令行小工具，用于快速生成一个模板
 
@@ -38,14 +38,7 @@ para get/g -p "./src/components" -s/sync Foo # 拉取组件到指定目录，路
 para new/n -p "./src" Demo # 创建Snack模板到指定目录，路径为./src/Demo (前提，目录(src)存在)
 ```
 
-> 手动安装教程
-
----
-title: 安装
-order: 2
----
-
-# Para-cli 脚本安装步骤
+# Para-cli 手动安装脚本安装步骤
 
 ## 程序安装
 
